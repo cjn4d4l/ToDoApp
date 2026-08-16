@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" href="ChatGPT Image Aug 12, 2026, 03_29_42 PM.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo App</title>
+</head>
+
+<body>
+    <header>
+        <h1>ToDo App</h1>
+        <nav>
+            <button id="addBtn" class="navBtns" title="Add a ToDo" onclick="openDialog('addDialog')">Add</button>
+            <button class="navBtns" onclick="openDialog('settings')">Settings</button>
+        </nav>
+    </header>
+    <main id="mainView">
+    </main>
+    <dialog id="settings">
+        <h1>Settings</h1>
+        <button class="navBtns" title="change theme" id="changeTheme">Dark/Light</button>
+        <button class="navBtns" title="close settings" onclick="closeDialog('settings')">Close</button>
+        <p>version 0.1</p>
+        <p>Badong Labs</p>
+    </dialog>
+    <dialog id="addDialog">
+        <h1>New Task</h1>
+        <input type="text" id="task" placeholder="e.g., do something" maxlength="60">
+        <p id="wordCount">0/60</p>
+        <nav>
+            <button class="navBtns" onclick="closeDialog('addDialog')">Cancel</button>
+            <button class="navBtns" id="addTask">Done</button>
+        </nav>
+    </dialog>
+    <script src="index.js"></script>
+</body>
+
+</html>
