@@ -40,7 +40,35 @@ header {
     padding: 10px;
 }
 
-.todo {
+#completedTask {
+    opacity: 0;
+    width: 100%;
+    padding: 10px;
+    transition: ease-in-out 0.2s;
+}
+
+hr {
+    border: 1px solid black;
+}
+
+#navCompTasks {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#showTasks {
+    width: 130px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.todo, .doneTodo {
     width: 100%;
     padding: 20px;
     margin-bottom: 5px;
@@ -49,6 +77,11 @@ header {
     display: flex;
     align-items: center;
     box-sizing: border-box;
+}
+
+.doneTodo {
+    display: flex;
+    justify-content: space-between;
 }
 
 .doneBtn {

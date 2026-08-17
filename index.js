@@ -33,24 +33,35 @@ let tasks = [];
 
 function doneTask(id) {
     tasks = JSON.parse(localStorage.getItem("tasks") || '[]');
-    tasks = tasks.filter(task => task.id !== id);
+    tasks.forEach(task => {
+        if (task.id == id) {
+            task.isDone = true;
+        }
+    })
     localStorage.setItem("tasks", JSON.stringify(tasks));
     renderTasks();
+    showCompletedTasks();
 }
 
 const main = document.getElementById("mainView");
 function renderTasks() {
     tasks = JSON.parse(localStorage.getItem("tasks") || '[]');
+    console.log(tasks);
     main.innerHTML = "";
     let n = 0;
+    main.innerHTML = `
+        <p>To Be Completed</p> <br>
+    `;
     tasks.forEach(task => {
-        main.innerHTML += `
+        if (!task.isDone) {
+            main.innerHTML += `
             <div class="todo">
                 <button onclick="doneTask(${task.id})" class="doneBtn" title="mark as done">Done</button>
                 <p>${task.content}</p>
             </div>                
         `;
-        n++;
+            n++;
+        }
     });
     if (n < 1) {
         main.innerHTML = `
@@ -61,12 +72,39 @@ function renderTasks() {
     }
 }
 
+const completedTask = document.getElementById("completedTask");
+function showCompletedTasks () {
+    tasks = JSON.parse(localStorage.getItem("tasks") || '[]');
+    completedTask.innerHTML = "";
+    let n = 0;
+    tasks.forEach(task => {
+        if (task.isDone) {
+            completedTask.innerHTML += `
+                <div class="doneTodo">
+                    <del>${task.content}</del>
+                    <button onclick="deleteTask(${task.id})" class="navBtns">Delete</button>
+                </div>
+            `;
+            n++;
+        }
+    })
+    if (n < 1) {
+        completedTask.innerHTML = `
+            <div class="todo">
+                <p>No Completed Tasks Yet...</p>
+            </div>
+        `;
+    }
+}
+
 const addBtn = document.getElementById("addBtn");
 document.getElementById("addTask").addEventListener("click", () => {
     tasks = JSON.parse(localStorage.getItem("tasks") || '[]');
+    console.log(tasks);
     const task = {
         id: tasks.length + 1,
-        content: document.getElementById("task").value.trim()
+        content: document.getElementById("task").value.trim(),
+        isDone: false
     };
     if (task.content.trim() === '') {
         return;
@@ -84,4 +122,29 @@ document.getElementById("task").addEventListener("input", () => {
     const task = document.getElementById("task").value;
     document.getElementById("wordCount").innerHTML = `${task.length}/60`;
 })
-document.addEventListener("DOMContentLoaded", renderTasks);
+
+let showTask = false;
+const showTaskbtn = document.getElementById("showTasks");
+showTaskbtn.addEventListener("click", () => {
+    if (showTask) {
+        showTaskbtn.innerText = "Hide Completed Tasks";
+        completedTask.style.opacity = "1";
+        showTask = false;
+    } else {
+        showTaskbtn.innerText = "Show Completed Tasks";
+        completedTask.style.opacity = "0";
+        showTask = true;
+    }
+})
+
+function deleteTask (id) {
+    tasks = JSON.parse(localStorage.getItem("tasks") || '[]');
+    tasks = tasks.filter(task => task.id !== id);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    showCompletedTasks();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    renderTasks();
+    showCompletedTasks();
+});
