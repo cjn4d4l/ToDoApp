@@ -111,10 +111,12 @@ function showCompletedTasks () {
 
 const addBtn = document.getElementById("addBtn");
 document.getElementById("addTask").addEventListener("click", () => {
+    let task_id = Number(localStorage.getItem("taskid") || '0');
+    task_id++;
     tasks = JSON.parse(localStorage.getItem("tasks") || '[]');
     console.log(tasks);
     const task = {
-        id: tasks.length + 1,
+        id: task_id,
         content: document.getElementById("task").value.trim(),
         isDone: false
     };
@@ -124,6 +126,7 @@ document.getElementById("addTask").addEventListener("click", () => {
 
     tasks.push(task);
     localStorage.setItem("tasks", JSON.stringify(tasks));
+    localStorage.setItem("taskid", task_id);
     document.getElementById("task").value = "";
     document.getElementById("wordCount").innerHTML = "0/60";
     renderTasks();
