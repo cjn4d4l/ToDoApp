@@ -31,6 +31,11 @@ document.getElementById("changeTheme").addEventListener("click", () => {
 
 let tasks = [];
 
+function countOfDone () {
+    tasks = JSON.parse(localStorage.getItem("tasks") || '[]');
+    document.getElementById("noofdone").innerHTML = `Completed Tasks: ${tasks.length}`;
+}
+
 function doneTask(id) {
     tasks = JSON.parse(localStorage.getItem("tasks") || '[]');
     tasks.forEach(task => {
@@ -41,6 +46,7 @@ function doneTask(id) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
     renderTasks();
     showCompletedTasks();
+    countOfDone();
 }
 
 const main = document.getElementById("mainView");
@@ -142,9 +148,11 @@ function deleteTask (id) {
     tasks = tasks.filter(task => task.id !== id);
     localStorage.setItem("tasks", JSON.stringify(tasks));
     showCompletedTasks();
+    countOfDone();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     renderTasks();
     showCompletedTasks();
+    countOfDone();
 });

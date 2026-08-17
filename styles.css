@@ -38,6 +38,7 @@ header {
 #mainView {
     width: 100%;
     padding: 10px;
+    border-bottom: 2px solid;
 }
 
 #completedTask {
@@ -45,10 +46,6 @@ header {
     width: 100%;
     padding: 10px;
     transition: ease-in-out 0.2s;
-}
-
-hr {
-    border: 1px solid black;
 }
 
 #navCompTasks {
