@@ -33,7 +33,13 @@ let tasks = [];
 
 function countOfDone () {
     tasks = JSON.parse(localStorage.getItem("tasks") || '[]');
-    document.getElementById("noofdone").innerHTML = `Completed Tasks: ${tasks.length}`;
+    let n = 0;
+    tasks.forEach(task => {
+        if (task.isDone) {
+            n++;
+        }
+    })
+    document.getElementById("noofdone").innerHTML = `Completed Tasks: ${n}`;
 }
 
 function doneTask(id) {
